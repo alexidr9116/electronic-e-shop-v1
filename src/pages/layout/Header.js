@@ -31,7 +31,7 @@ export default function Header() {
                     header={
                         <div className='avatar '>
                             <div className='w-10 rounded-full'>
-                                <img src='./assets/avatar.jpg' alt='avatar' />
+                                <img src='/assets/avatar.jpg' alt='avatar' />
                             </div>
                         </div>
                     }

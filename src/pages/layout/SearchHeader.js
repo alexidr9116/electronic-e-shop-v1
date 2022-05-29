@@ -8,7 +8,7 @@ export default function SearchHeader() {
     const { categories } = useSelector((state) => state.shopping);
     
     return (
-        <div className="p-4 bg-rose-500 w-screen  absolute left-0">
+        <div className="p-4 bg-rose-500 absolute w-full left-0">
             <div className="container flex w-full justify-center lg:justify-between items-center">
                 <div className="hidden lg:flex">
                     <DropdownMenu
