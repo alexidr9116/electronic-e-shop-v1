@@ -8,7 +8,7 @@ const Page = forwardRef(({ children, title = '', meta, ...other }, ref) => {
             <Helmet>
                 <title>{`${title} | electronic online shop`}</title>
             </Helmet>
-            <div ref={ref} {...other} >
+            <div ref={ref} {...other}  >
                 {children}
             </div>
         </>

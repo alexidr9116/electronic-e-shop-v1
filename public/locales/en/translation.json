@@ -2,6 +2,34 @@
     "words":{
         "support":"Support",
         "featured-products":"Featured Products",
-        "faq":"FAQ"   
+        "faq":"FAQ",
+        "shopping":"Shopping",
+        "recommend":"Recommend",
+        "single":"Single",
+        "grouped":"Grouped",
+        "latest":"Latest",
+
+        "services":"Services",
+        
+        "blogs":"Blogs",
+        "contact":"Contact",
+        "main-menu":"Main Menu",
+        "shop-by-categories":"By Categories",
+        "shop":"Shop",
+        "account":"Account",
+        "search":"Search",
+        "cart":"Cart",
+        "favorite":"Favorite"
+        
+    },
+    "sort":{
+        "default-setting":"Default Sorting",
+        "popular":"Sort By Popularity",
+        "latest":"Sort By Latest",
+        "asc":"Price by lower to high",
+        "desc":"Price by high to lower"
+    },
+    "shopping":{
+
     }
 }

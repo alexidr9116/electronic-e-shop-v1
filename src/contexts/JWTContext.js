@@ -2,11 +2,11 @@ import { createContext, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 
 // utils 
-import { SEND_POST_REQUEST, API_AUTH, SEND_GET_REQUEST, API_CLIENT, API_WAREHOUSE } from '../utils/API';
+import { SEND_POST_REQUEST, API_AUTH, SEND_GET_REQUEST } from '../utils/API';
 
 import { isValidToken, setSession } from '../utils/jwt';
 
-import { setWarehouseToStore } from '../store/action/settingAction';
+// import { setWarehouseToStore } from '../store/action/settingAction';
 
 // ----------------------------------------------------------------------
 
@@ -91,14 +91,6 @@ function AuthProvider({ children }) {
                         user,
                     },
                 });
-                const res = await SEND_GET_REQUEST(API_WAREHOUSE.getSelf);
-
-                if (res.status === 200) {
-                    setWarehouseToStore(res.data.warehouse);
-                }
-                else {
-                    setWarehouseToStore({});
-                }
 
             } else {
                 dispatch({
@@ -187,14 +179,6 @@ function AuthProvider({ children }) {
                 user,
             },
         });
-        const res = await SEND_GET_REQUEST(API_WAREHOUSE.getSelf);
-
-        if (res.status === 200) {
-            setWarehouseToStore(res.data.warehouse);
-        }
-        else {
-            setWarehouseToStore({});
-        }
 
         return { success: true, message: 'You are login successfully' };
 
@@ -223,14 +207,6 @@ function AuthProvider({ children }) {
                         user,
                     },
                 });
-                const res = await SEND_GET_REQUEST(API_WAREHOUSE.getSelf);
-
-                if (res.status === 200) {
-                    setWarehouseToStore(res.data.warehouse);
-                }
-                else {
-                    setWarehouseToStore({});
-                }
 
             }
             return response.data.step;
@@ -246,7 +222,6 @@ function AuthProvider({ children }) {
     const logout = async () => {
         try {
             setSession(null);
-            setWarehouseToStore({})
             dispatch({ type: 'LOGOUT' });
             // signOut(AUTH);
         } catch (err) {

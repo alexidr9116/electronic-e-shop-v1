@@ -7,8 +7,7 @@ export const setThemeModeToStore = async(data)=>{
 }
 export const setLanguageToStore = async(data)=>{
     // handle change language mode .
-
-    dispatch(setLanguageToStore(data));
+    dispatch(setLanguage(data));
     return true;
 }
 
