@@ -24,7 +24,7 @@ export default function AmountInput({minValue = 0, maxValue = 100}){
     return (
         <div className={`input-group  ` }>
             <button className={`btn btn-accent btn-square btn-sm md:btn-md`} onClick={decrease}>-</button>
-            <input className={`input input-bordered w-20 text-right input-sm md:input-md`} value={value} onChange={handleValue}></input>
+            <input className={`input input-bordered w-16 text-right input-sm md:input-md`} value={value} onChange={handleValue}></input>
             <button className={`btn btn-accent btn-square  btn-sm md:btn-md`} onClick={increase}>+</button>
         </div>
     )

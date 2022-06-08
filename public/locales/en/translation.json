@@ -39,6 +39,6 @@
     },
     "shopping":{
         "out-stock":"Out of stock",
-        "add-cart":"Add to cart"
+        "add-cart":"To cart"
     }
 }
