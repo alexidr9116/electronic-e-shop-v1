@@ -4,10 +4,10 @@ import { useState } from 'react';
 AmountInput.PropType = {
     minValue:PropTypes.number,
     maxValue:PropTypes.number,
-    size:PropTypes.string,
+    
 }
 
-export default function AmountInput({minValue = 0, maxValue = 100, size = "md"}){
+export default function AmountInput({minValue = 0, maxValue = 100}){
     const [value,setValue] = useState(0);
     const decrease = ()=>{
         setValue(Math.max(0, value-1));
@@ -23,9 +23,9 @@ export default function AmountInput({minValue = 0, maxValue = 100, size = "md"})
     }
     return (
         <div className={`input-group  ` }>
-            <button className={`btn btn-accent btn-square btn-${size}`} onClick={decrease}>-</button>
-            <input className={`input input-bordered w-20 text-right input-${size}`} value={value} onChange={handleValue}></input>
-            <button className={`btn btn-accent btn-square btn-${size}`} onClick={increase}>+</button>
+            <button className={`btn btn-accent btn-square btn-sm md:btn-md`} onClick={decrease}>-</button>
+            <input className={`input input-bordered w-20 text-right input-sm md:input-md`} value={value} onChange={handleValue}></input>
+            <button className={`btn btn-accent btn-square  btn-sm md:btn-md`} onClick={increase}>+</button>
         </div>
     )
 }
