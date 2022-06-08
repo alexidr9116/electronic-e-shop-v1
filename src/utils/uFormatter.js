@@ -3,8 +3,17 @@ import numeral from 'numeral';
 export function fNumber(number) {
     return numeral(number).format("0,0.00a").replace(".00", '');
 }
+export function strNumber(number){
+    return numeral(number).format("0,0.00").replace(".00",'');
+}
+export function strPrice(number, currency){
+    return `${currency}${strNumber(number)}`;
+}
 export function fPrice(number, currency) {
     return `${currency}${fNumber(number)}`;
+}
+export function fOffCostPercent(high,low){
+    return `${parseFloat((high-low)/high * 100).toFixed(2)} %OFF`.replace(".00",'');
 }
 export function fRemain(current, period) {
     const rm = period - current;
@@ -15,9 +24,7 @@ export function fRemain(current, period) {
     return {
         text:`${value}`,
         isRemain:rm>0,
-
     }
-    
 }
 export function fShortDate(number){
     try{

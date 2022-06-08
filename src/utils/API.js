@@ -14,7 +14,8 @@ const API_AUTH = {
 
 const ASSETS_URL = {
     root: SERVER_ADDRESS,
-    image: `${SERVER_ADDRESS}uploads/images/`
+    image: `${SERVER_ADDRESS}uploads/images/`,
+    products:`${SERVER_ADDRESS}uploads/images/products/`,
 }
 const SEND_PUT_REQUEST = async(url, data) => {
     const response = await axios.put(url, data);

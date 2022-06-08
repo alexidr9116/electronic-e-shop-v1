@@ -11,6 +11,7 @@ const Page = forwardRef(({ children, title = '', meta, ...other }, ref) => {
             <div ref={ref} {...other}  >
                 {children}
             </div>
+            <div className="h-16 w-full md:hidden "></div>
         </>
     )
 

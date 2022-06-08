@@ -1,5 +1,10 @@
 {
     "words":{
+        "category":"Category",
+        "sku":"SKU",
+        "reviews":"Reviews",
+        "memory":"Memory",
+        "tags":"Tags",
         "support":"Support",
         "featured-products":"Featured Products",
         "faq":"FAQ",
@@ -19,7 +24,10 @@
         "account":"Account",
         "search":"Search",
         "cart":"Cart",
-        "favorite":"Favorite"
+        "favorite":"Favorite",
+
+        "home":"Home"
+        
         
     },
     "sort":{
@@ -30,6 +38,7 @@
         "desc":"Price by high to lower"
     },
     "shopping":{
-
+        "out-stock":"Out of stock",
+        "add-cart":"Add to cart"
     }
 }

@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useSelector } from "react-redux";
-import Rating from "../../components/Rating";
+import Rating from "../../components/Ratings";
 
 export default function ProductFilter({ mobile = false, categories = [], memories = [] }) {
     const [filteredMemories, setFilteredMemories] = useState([]);

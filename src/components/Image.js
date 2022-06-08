@@ -29,7 +29,7 @@ export default function Image({ ratio, effect = 'blur', alt = 'lazy-image', clas
     );
   }
   return (
-    <span className={`overflow-hidden block  h-auto leading-0 border border-transparent ${className}`} >
+    <span className={`overflow-hidden block w-full leading-0 border border-transparent ${className}`} >
       <LazyLoadImage
         wrapperClassName='bg-cover w-full h-full'
         className='object-cover w-full h-full'
