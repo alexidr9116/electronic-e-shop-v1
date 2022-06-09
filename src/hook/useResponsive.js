@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
 const BREAK_POINTS = { mobile: 768, tablet: 1024, laptop: 1280 };
+
+
 export default function useResponsive() {
     const screenSize = useRef();
 

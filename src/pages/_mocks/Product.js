@@ -28,7 +28,25 @@ export const ALL_PRODUCTS = [
         memory:{
             unit:"GB",
             size:'128'
-        }
+        },
+        technical:
+        [
+            {key:"Product Dimensions", value:"8.27 x 4.33 x 0.5 inches"},
+            {key:"Item Weight", value:"3.8 ounces"},
+            {key:"ASIN", value:"B079HV3tC9"},
+            {key:"Item model number", value:"Black&Green Waterproof Phone Pouch"},
+            {key:"Special Features", value:"Waterproof, Fit all devices under 7"},
+            {key:"Form Factor", value:"Dry Bag"},
+            {key:'Manufacturer',value:'X Vision Technology LIMITED'}
+            
+        ],
+        note:
+        [
+            {key:"Description",type:"html",value:"<p>Et aliquid aliquid earum voluptatum explicabo veniam. Expedita mollitia inventore distinctio sed. Fugit eos dolores aut ut ut soluta explicabo. Amet doloremque repellat minus quaerat laborum</p>"},
+            {key:"",value:"https://elec.mn/img/products/OpZmXV6we3H7B9aUe0TbWbDxbcLZkauC2Nts2m1b.jpeg",type:"image"},
+            {key:"Description",type:"html",value:"<p>Et aliquid aliquid earum voluptatum explicabo veniam. Expedita mollitia inventore distinctio sed. Fugit eos dolores aut ut ut soluta explicabo. Amet doloremque repellat minus quaerat laborum</p>"},
+            {key:"",value:"https://elec.mn/img/products/OpZmXV6we3H7B9aUe0TbWbDxbcLZkauC2Nts2m1b.jpeg",type:"image"}
+        ]
     },
     {
         _id: "",

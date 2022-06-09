@@ -9,6 +9,7 @@ import useResponsive from '../../hook/useResponsive';
 import Drawer from '../../components/Drawer';
 import { ALL_PRODUCTS } from '../_mocks/Product';
 import ProductItem from '../../components/ProductItem';
+import ProductItemSkeleton from '../../components/skeleton/ProductItemSkeleton';
 
 // product model {
 //     _id,
@@ -33,6 +34,8 @@ export default function Shopping() {
     });
     const { t } = useTranslation();
     const { themeMode } = useSelector((state) => state.setting);
+
+    const [loading, setLoading] = useState(false);
     const borderColor = ((themeMode === 'light') ? 'border-stone-300' : 'border-gray-800');
 
     const { categories } = useSelector((state) => state.shopping);
@@ -44,19 +47,22 @@ export default function Shopping() {
     }
 
     useEffect(() => {
-        setProducts({
-            all: ALL_PRODUCTS,
-            filtered: ALL_PRODUCTS,
-        })
+        setLoading(true)
+        setTimeout(() => {
+            setProducts({
+                all: ALL_PRODUCTS,
+                filtered: ALL_PRODUCTS,
+            });
+            setLoading(false)
+        }, 3000);
+
     }, []);
 
     return (
         <Page title="Products" className="flex p-4 gap-4 mt-24 w-full">
             {/* filter  */}
             <div className='hidden md:flex md:flex-col '>
-                
-                    <ProductFilter mobile={isMobile} categories={categories} memories={SUPPORT_MEMORY_SIZE} />
-                    
+                <ProductFilter mobile={isMobile} categories={categories} memories={SUPPORT_MEMORY_SIZE} />
 
             </div>
             {/* product contents */}
@@ -83,29 +89,39 @@ export default function Shopping() {
                 </div>
                 {/* product list */}
                 <div className={`py-2 grid gap-2 md:gap-4 ${viewMode === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3 ' : ''}`}>
-                    {products.filtered.map((item, index) => (
-                        <ProductItem
-                            product={item}
-                            currency='$'
-                            currencyRate={1}
-                            key={index}
-                            index = {index}
-                            layout={viewMode}
-                            borderColor={borderColor}
-                        />
-                    ))}
-                </div>
+                    {loading &&
+                        [1, 2, 3, 4, 5, 6].map((value, index) => (
+                            <ProductItemSkeleton
+                                key = {index}
+                                layout={viewMode}
+                                borderColor={borderColor}
+                            />
+                        ))
+                }
+                {!loading && products.filtered.map((item, index) => (
+                    <ProductItem
+                        product={item}
+                        currency='$'
+                        currencyRate={1}
+                        key={index}
+                        index={index}
+                        layout={viewMode}
+                        borderColor={borderColor}
+                    />
+                ))}
             </div>
-            {showFilter &&
-                <Drawer
-                    open={showFilter}
-                    onClose={() => setShowFilter(false)}
-                    className='min-w-[320px]'
-                    children={<ProductFilter mobile={isMobile} categories={categories} memories={SUPPORT_MEMORY_SIZE} />}
-                >
+        </div>
+            {
+        showFilter &&
+        <Drawer
+            open={showFilter}
+            onClose={() => setShowFilter(false)}
+            className='min-w-[320px]'
+            children={<ProductFilter mobile={isMobile} categories={categories} memories={SUPPORT_MEMORY_SIZE} />}
+        >
 
-                </Drawer>
-            }
-        </Page>
+        </Drawer>
+    }
+        </Page >
     )
 }

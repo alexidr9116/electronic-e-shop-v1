@@ -6,6 +6,9 @@ export function fNumber(number) {
 export function strNumber(number){
     return numeral(number).format("0,0.00").replace(".00",'');
 }
+export function strPercent(value, sum){
+    return `${numeral(value/sum*100).format("0,0.00").replace(".00",'')}%`;
+}
 export function strPrice(number, currency){
     return `${currency}${strNumber(number)}`;
 }

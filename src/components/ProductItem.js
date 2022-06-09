@@ -49,7 +49,13 @@ export default function ProductItem({ borderColor = 'border-gray-300', product, 
 
                     {/* <Image src = {`${ASSETS_URL.products}${product.image}`} ></Image> */}
                     <LazyLoadImage alt={`lazy-image`}
-                        effect={`blur`} src={`${product.image}`} wrapperClassName={`${layout === 'list' ? 'w-[150px] lg:w-[250px]' : 'w-[300px]'}  ${product.stockAmount <= 0 ? 'opacity-40' : ''}`}></LazyLoadImage>
+                        effect={`blur`} 
+                        src={`${product.image}`} 
+                        wrapperClassName={`${layout === 'list' ? 'w-[150px] lg:w-[250px]' : 'w-[300px]'}  ${product.stockAmount <= 0 ? 'opacity-40' : ''}`}
+                        placeholder={<div className={`animate-pulse bg-base-300 ${layout === 'list' ? 'w-[150px] h-[150px] lg:w-[250px] lg:h-[250px]' : 'w-[300px] h-[300px]'} h-32`} ></div>}
+                    >
+
+                        </LazyLoadImage>
                     {
                         (product.usdLow > 0 && product.usdLow < product.usdHigh) &&
                         <label className='badge text-white badge-error absolute top-4 left-4 '>

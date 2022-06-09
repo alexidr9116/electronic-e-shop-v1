@@ -36,7 +36,7 @@ export default function ProductCarousel({ product }) {
                 {product?.images?.map((image, index) => (
                     <a
                         key={index} href={`#product-item-${index}`}
-                        className={`border bg-transparent p-2 rounded-md active:border-accent focus:border-accent hover:border-accent  ${borderColor}`} >
+                        className={`overflow-hidden border bg-transparent p-2 rounded-md active:border-accent focus:border-accent hover:border-accent  ${borderColor}`} >
                         <div className={`w-[80px] flex justify-center`}>
                             <img
                                 src={`${image}`}

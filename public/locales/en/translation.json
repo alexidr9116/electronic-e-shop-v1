@@ -13,6 +13,8 @@
         "single":"Single",
         "grouped":"Grouped",
         "latest":"Latest",
+        
+        "write-review":"Write A Review",
 
         "services":"Services",
         
@@ -37,8 +39,20 @@
         "asc":"Price by lower to high",
         "desc":"Price by high to lower"
     },
+    "product":{
+        "note":"Note",
+        "addition":"Additional"
+        
+    },
     "shopping":{
         "out-stock":"Out of stock",
         "add-cart":"To cart"
+    },
+    "reviews":{
+        "add-review":"Add a review",
+        "add-review-validation-description":"You can not write review. Require Login *",
+        "your-rating":"Your rating*",
+        "customer-review":"Customer Review"
     }
+
 }

@@ -4,8 +4,10 @@ import { useState } from 'react';
 Rating.PropType = {
     value: PropTypes.number,
     readOnly: PropTypes.bool,
+    viewText:PropTypes.bool,
+    name:PropTypes.string,
 }
-export default function Rating({ value = 4, readOnly = false, name = 'rating-' }) {
+export default function Rating({ value = 4, readOnly = false, name = 'rating-',viewText = true }) {
     
     const [val, setVal] = useState(parseFloat(value).toFixed(1));
     
@@ -27,6 +29,7 @@ export default function Rating({ value = 4, readOnly = false, name = 'rating-' }
         <input type="radio" name={`${name}`} className="bg-warning mask mask-star-2 mask-half-1" onChange={(e) => handleChange(e, (7))} checked={(val>3 && val<=3.5)} />
         <input type="radio" name={`${name}`} className="bg-warning mask mask-star-2 mask-half-2" onChange={(e) => handleChange(e, (8))} checked={(val>3.5 && val<=4)} />
         <input type="radio" name={`${name}`} className="bg-warning mask mask-star-2 mask-half-1" onChange={(e) => handleChange(e, (9))} checked={(val>4 && val<=4.5)} />
-        <input type="radio" name={`${name}`} className="bg-warning mask mask-star-2 mask-half-2" onChange={(e) => handleChange(e, (10))} checked={(val>4.5)} />{val}
+        <input type="radio" name={`${name}`} className="bg-warning mask mask-star-2 mask-half-2" onChange={(e) => handleChange(e, (10))} checked={(val>4.5)} />
+        {viewText&&<span className='ml-2'>{val}</span>}
     </div>)
 }
