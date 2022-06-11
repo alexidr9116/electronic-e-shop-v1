@@ -16,7 +16,7 @@ import reportWebVitals from './reportWebVitals';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter } from 'react-router-dom';
 import ScrollToTopButton from './components/ScrollToTopButton';
-import { AuthProvider } from './contexts/JWTContext';
+import { AuthProvider } from './contexts/AuthContext';
 import { store } from './store/store';
 
 const container = document.getElementById('root');

@@ -13,7 +13,7 @@
         "single":"Single",
         "grouped":"Grouped",
         "latest":"Latest",
-        
+        "load-more":"Load More..",
         "write-review":"Write A Review",
 
         "services":"Services",
@@ -28,9 +28,20 @@
         "cart":"Cart",
         "favorite":"Favorite",
 
-        "home":"Home"
+        "home":"Home",
+        "next":"Next",
+        "prev":"Previous",
+        "items":"Items",
+        "delete":"Delete"
+
         
-        
+    },
+    "menu":{
+        "login":"Login",
+        "logout":"Logout",
+        "profile":"Profile",
+        "shop":"E-Shop",
+        "service":"Service"
     },
     "sort":{
         "default-setting":"Default Sorting",
@@ -46,13 +57,64 @@
     },
     "shopping":{
         "out-stock":"Out of stock",
-        "add-cart":"To cart"
+        "add-cart":"To cart",
+        "continue-shopping":"Shopping",
+        "basket":"Your Basket",
+        "delivery-address":"Delivery To Here",
+        "delivery-option":"Delivery Options",
+        "standard-delivery":"Standard Delivery",
+        "standard-delivery-desc":"It's Free, but only support for local users.",
+        "fast-delivery":"Fast Delivery",
+        "fast-delivery-desc":"Delivery to other countries may require money.",
+        "billing-address":"Billing Address",
+        "order-summary":"Order Summary",
+        "sub-total":"Sub Total",
+        "shipping":"Shipping",
+        "total":"Total",
+        "payment-option":"Payment Options",
+        "crypto":"Crypto",
+        "crypto-desc":"You can pay the product's price with crypto currency like as USDT, BUSD, BNB or BTC",
+        "paypal":"Pay with PayPal",
+        "paypal-desc":"You will be redirected to PayPal website to complete your purchase securely",
+        "qpay":"QPay",
+        "qpay-desc":"We also support QPay system for local clients, and you can pay with QPay system.",
+        "complete-order":"Complete Order",
+        "product":"Product",
+        "price":"Price",
+        "amount":"Quantity",
+        "favorite":"Favorite",
+        "favorites":"Favorites"
     },
     "reviews":{
         "add-review":"Add a review",
         "add-review-validation-description":"You can not write review. Require Login *",
         "your-rating":"Your rating*",
         "customer-review":"Customer Review"
+    },
+    "auth":{
+        "login":"Login Me",
+        "login-title":"Login To Axtronic",
+        "email-placeholder":"Email or Username",
+        "password-placeholder":"Password",
+        "forgot-password":"Forgot Password?",
+        "not-registered":"Not Registered?",
+        "signup-title":"Register To Axtronic",
+        "first-name":"First Name",
+        "last-name":"Last Name",
+        "username-placeholder":"Username",
+        "email":"Email address",
+        "confirm-placeholder":"Confirm",
+        "already-registered":"Already Registered?",
+        "register":"Register Me",
+        
+        "forgot-description":"Enter the email address associated with your account and we'll send you a link to reset your password",
+        "submit":"Submit to system",
+        "verify-title":"Please Verify Mail",
+        "verify-description":"You're almost there! We sent an email to ",
+        "verify-sub-description":"Just click on the link in that email to complete your signup. If you don't see it, you may need to check your spam folder",
+        "verify-sub-title":"Still can't find the email?",
+        "go-home":"Go To Home",
+        "resend":"Resend Mail"
     }
 
 }

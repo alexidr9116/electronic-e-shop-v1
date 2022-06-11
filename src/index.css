@@ -4,26 +4,3 @@
 .collapse-arrow .collapse-title:after{
     top:1rem;
 }
-::-webkit-scrollbar {
-    width: 10px;
-    background-color: transparent;
-    border-radius: 5px;
-    /* overflow: visible; */
-  }
-  
-  ::-webkit-scrollbar-track {
-    background: linear-gradient( to left,#0000 0% , rgba(39, 41, 49, 0.199) 50% , #0000 100% );
-    border-radius: 10px;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background: rgba(88, 90, 110, 0.589);
-    border-radius: 5px;
-    width:10px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgba(41, 50, 61, 0.61);
-  }
-  

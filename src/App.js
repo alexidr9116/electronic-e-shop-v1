@@ -3,11 +3,14 @@ import {useSelector} from 'react-redux';
 import Router from './routers';
 import { useTranslation } from 'react-i18next';
 import { SUPPORT_THEME } from './config';
-import { loadShoppingCategories } from './utils/initialize';
+import { loadShoppingCategories,loadHotProducts,loadLastCurrencyRate } from './utils/initialize';
+import toast from 'react-hot-toast';
+import { t } from 'i18next';
 
 function App() {
   const { i18n } = useTranslation();
   const {language, themeMode} = useSelector((state)=>state.setting);
+
 
   useEffect(()=>{
     if(themeMode && SUPPORT_THEME.includes(themeMode)){
@@ -22,7 +25,18 @@ function App() {
   }, [language, i18n]);
 
   useEffect(()=>{
-    loadShoppingCategories();
+    const initialize = async()=>{
+      if(!await(loadShoppingCategories())){
+        toast.error(t('messages.not-load-category'));
+      }
+      if(!await(loadHotProducts())){
+        toast.error(t('messages.not-load-hot-product'));
+      }
+      if(!await(loadLastCurrencyRate())){
+        toast.error(t('messages.not-load-currency-rate'));
+      }
+    }
+    initialize();
   },[])
 
   return (

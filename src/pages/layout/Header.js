@@ -9,12 +9,18 @@ import Logo from "../../components/Logo";
 import { MAIN_MENU_ROUTERS } from "../../routers/MenuRouters";
 import MainMenu from "./MainMenu";
 import MobileNavDrawer from './MobileNavDrawer';
-
-
+import useAuth from '../../hook/useAuth';
+import { ASSETS_URL } from '../../utils/API';
+import AccountMenu from './AccountMenu';
+import { SUPPORT_LOCALES } from '../../config';
 
 export default function Header() {
+    const [dropdownClose, setDropdownClose] = useState(false);
+    const { carts, favorites } = useSelector((state) => state.basket);
+    const { user, isAuthenticated, logout } = useAuth();
+
     const { themeMode } = useSelector((state) => state.setting);
-    const {categories} = useSelector((state)=>state.shopping);
+    const { mainCategories } = useSelector((state) => state.shopping);
     const [navbar, setNavbar] = useState(false);
     return (
         <div className={`flex w-full justify-between p-2 border-b items-center ${themeMode === 'light' ? 'border-stone-300' : 'border-gray-800'}`} >
@@ -23,35 +29,53 @@ export default function Header() {
                 <MainMenu routers={MAIN_MENU_ROUTERS} />
             </div>
             <div className="flex sm:hidden">
-                <button className="btn btn-sm btn-ghost rounded-full h-8 w-8  p-0" onClick = {()=>(setNavbar(true))}><Icon icon={'dashicons:menu-alt'} /></button>
+                <button className="btn btn-sm btn-ghost rounded-full h-8 w-8  p-0" onClick={() => (setNavbar(true))}><Icon icon={'dashicons:menu-alt'} /></button>
             </div>
             <div className='hidden sm:flex gap-2'>
                 {/* avatar  */}
                 <DropdownMenu
                     header={
-                        <div className='avatar '>
+                        <button className='avatar '>
                             <div className='w-10 rounded-full'>
-                                <img src='/assets/avatar.jpg' alt='avatar' />
+                                {isAuthenticated && user && user?.avatar &&
+                                    <img src={`${ASSETS_URL.image}${user.avatar}`} alt='avatar' />
+                                }
+                                {!isAuthenticated &&
+                                    <img src='/assets/avatar.jpg' alt='avatar' />
+                                }
                             </div>
-                        </div>
+                        </button>
+                    }
+                    contentClass='-ml-10'
+                    close={dropdownClose}
+                    content={
+                        isAuthenticated &&
+                        <AccountMenu user={user} isAuthenticated={isAuthenticated} logout={logout} onClose={() => { setDropdownClose(true) }} />
+
                     }
                 ></DropdownMenu>
                 {/* favorite */}
 
                 <div className='relative'>
-                    <Link className='btn btn-sm p-1 h-10 w-10 rounded-full btn-ghost' to="/"><Icon icon="ic:twotone-favorite-border" width={28}></Icon></Link>
-                    <span className='badge badge-error badge-sm absolute -ml-4'>6</span>
+                    <Link className='btn btn-sm p-1 h-10 w-10 rounded-full btn-ghost' to="/shopping/favorite"><Icon icon="ic:twotone-favorite-border" width={28}></Icon></Link>
+                    {favorites?.length > 0 &&
+                        <span className='badge badge-error badge-sm absolute -ml-4'>{favorites.length}</span>
+                    }
                 </div>
                 {/* shopping cart */}
                 <div className='relative'>
-                    <Link className='btn btn-sm p-1 h-10 w-10 rounded-full btn-ghost' to="/"><Icon icon="carbon:shopping-cart-plus" width={24}></Icon></Link>
-                    <span className='badge badge-error badge-sm absolute -ml-4'>2</span>
+                    <Link className='btn btn-sm p-1 h-10 w-10 rounded-full btn-ghost' to="/shopping/basket"><Icon icon="carbon:shopping-cart-plus" width={24}></Icon></Link>
+                    {carts?.length > 0 &&
+                        <span className='badge badge-error badge-sm absolute -ml-4'>
+                            {carts?.reduce((prev, current) => (prev + current.amount), 0)}
+                        </span>
+                    }
                 </div>
 
             </div>
             {/* mobile nav bar */}
-            {navbar && 
-                <MobileNavDrawer onClose={()=>setNavbar(false)} open={navbar} routers={MAIN_MENU_ROUTERS}categories = {categories}></MobileNavDrawer>
+            {navbar &&
+                <MobileNavDrawer onClose={() => setNavbar(false)} open={navbar} routers={MAIN_MENU_ROUTERS} categories={mainCategories}></MobileNavDrawer>
             }
         </div>
     )

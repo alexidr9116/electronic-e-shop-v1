@@ -13,7 +13,6 @@ module.exports = {
       center:true,
     }
   },
-  
   plugins: [require("daisyui")],
   daisyui:{
     themes:['light','night']

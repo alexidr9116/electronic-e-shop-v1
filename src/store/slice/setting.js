@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     isLoading: false,
     themeMode: "light",
-    language: { key: "en", value: "English", flag:'twemoji:flag-mongolia' },
+    language: { key: "en", value: "English", flag:'twemoji:flag-for-flag-united-kingdom', currency:'$' },
     error: null,
 }
 const slice = createSlice({

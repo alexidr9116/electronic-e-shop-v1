@@ -1,8 +1,9 @@
 export const MAIN_MENU_ROUTERS = [
     {
-        title:"Shopping",
+        title:"E-Shop",
         path:"/shopping",
         elements:[
+            {title:"Shopping",path:"/shopping"},
             {title:"Recommend",path:"/shopping/recommend"},
             {title:"Single",path:"/shopping/single"},
             {title:"Grouped",path:"/shopping/grouped"},

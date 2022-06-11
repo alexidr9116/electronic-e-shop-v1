@@ -6,16 +6,32 @@ const API_PAYMENT = {
 const API_ADMIN = {
 }
 const API_CLIENT = {
+    category:{
+        getAll:"api/e-shop/category/get-all"
+    },
+    product:{
+        getHot:"api/e-shop/product/get-hot",
+        getAll:"api/e-shop/product/get-all",
+        getDetail:"api/e-shop/product/get-detail/",
+        getProductsByIds:"api/e-shop/product/gets-by-ids/",
+    },
+    common:{
+        getLastCurrencyRate:"api/e-shop/common/last-currency-rate",
+    }
 }
 const API_WAREHOUSE = {
 }
 const API_AUTH = {
+    register:"api/e-shop/auth/register",
+    login:"api/e-shop/auth/login",
+    account:"api/e-shop/auth/my-account",
 }
 
 const ASSETS_URL = {
     root: SERVER_ADDRESS,
     image: `${SERVER_ADDRESS}uploads/images/`,
     products:`${SERVER_ADDRESS}uploads/images/products/`,
+    ezo:`https://elec.mn/img/products/`,
 }
 const SEND_PUT_REQUEST = async(url, data) => {
     const response = await axios.put(url, data);

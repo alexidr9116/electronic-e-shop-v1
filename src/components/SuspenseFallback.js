@@ -8,10 +8,12 @@ export default function SuspenseFallback() {
     });
   
     useMemo(() => {
+      console.log("start",Date.now);
       NProgress.start();
     }, []);
   
     useEffect(() => {
+      console.log("done",Date.now());
       NProgress.done();
     }, []);
   

@@ -3,6 +3,7 @@ import { useRoutes, Navigate } from 'react-router-dom';
 import SuspenseFallback from '../components/SuspenseFallback';
 
 import DefaultLayout from '../pages/layout/DefaultLayout';
+import MainLayout from '../pages/layout/MainLayout';
 
 const Loadable = (Component) => (props) => {
 
@@ -15,6 +16,26 @@ const Loadable = (Component) => (props) => {
 export default function Router(){
     return useRoutes([
         {
+            path:'/auth',
+            element:<MainLayout />,
+            children:[
+                {element:<Login />, index:true},
+                {element:<Login />, path:'login'}, 
+                {element:<Signup />, path:'signup'}, 
+                {element:<EmailVerify />, path:'verify-email'}, 
+                {element:<ForgotPassword />, path:'forgot-password'}, 
+            ]
+        },
+        {
+            path:'/shopping',
+            element:<DefaultLayout />,
+            children:[
+                {element:<Shopping />, index:true},
+                {element:<ShoppingBasket />, path:'basket'},
+                {element:<ShoppingFavorite />, path:'favorite'},
+            ]
+        },
+        { 
             path:'/',
             element:<DefaultLayout />,
             children:[
@@ -26,6 +47,18 @@ export default function Router(){
     ])
 }
 
-const Home = Loadable(lazy(()=>import("../pages/Home")));
-const Shopping = Loadable(lazy(()=>import("../pages/client/Shopping")));
+// auth
+const Login = Loadable(lazy(()=>import("../pages/auth/Login")));
+const Signup = Loadable(lazy(()=>import("../pages/auth/Signup")));
+const EmailVerify = Loadable(lazy(()=>import("../pages/auth/EmailVerify")));
+const ForgotPassword = Loadable(lazy(()=>import("../pages/auth/ForgotPassword")));
+// admin
+
+// client
 const ProductDetail = Loadable(lazy(()=>import('../pages/client/ProductDetail')));
+const Home = Loadable(lazy(()=>import("../pages/Home")));
+// shopping
+const Shopping = Loadable(lazy(()=>import("../pages/client/Shopping")));
+const ShoppingBasket = Loadable(lazy(()=>import("../pages/client/ShoppingBasket")));
+const ShoppingFavorite = Loadable(lazy(()=>import("../pages/client/ShoppingFavorites")));
+

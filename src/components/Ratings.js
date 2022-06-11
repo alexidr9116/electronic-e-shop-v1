@@ -1,25 +1,32 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-Rating.PropType = {
+Rating.propTypes = {
     value: PropTypes.number,
     readOnly: PropTypes.bool,
     viewText:PropTypes.bool,
     name:PropTypes.string,
+    onChanged:PropTypes.func,
+    size:PropTypes.string,
 }
-export default function Rating({ value = 4, readOnly = false, name = 'rating-',viewText = true }) {
+export default function Rating({ size = "md", value = 0, readOnly = false, name = 'rating-',viewText = true,onChanged }) {
     
-    const [val, setVal] = useState(parseFloat(value).toFixed(1));
+    const [val, setVal] = useState(parseFloat(isNaN(value)?0:value));
     
     const handleChange = (e, index) => {
         
         if (!readOnly) {
-            setVal(parseFloat(index/2).toFixed(1));
+            const _value = parseFloat(index/2);
+            setVal(_value);
+            
+            if(onChanged){
+                onChanged(_value);
+            }
         }
     }
     
-    return (<div className="rating rating-half">
-        {!readOnly && <input type="radio" name={`${name}`} className="rating-hidden" />}
+    return (<div className={`rating rating-half rating-${size}`}>
+        <input type="radio" name={`${name}`} className="rating-hidden" onChange={(e) => handleChange(e, (0))}  checked = {(val <=0)} />
         <input type="radio" name={`${name}`} className="bg-warning mask mask-star-2 mask-half-1" onChange={(e) => handleChange(e, (1))} checked={(val>0 && val<=0.5)} />
         <input type="radio" name={`${name}`} className="bg-warning mask mask-star-2 mask-half-2" onChange={(e) => handleChange(e, (2))} checked={(val>0.5 && val<=1)} />
         <input type="radio" name={`${name}`} className="bg-warning mask mask-star-2 mask-half-1" onChange={(e) => handleChange(e, (3))} checked={(val>1 && val<=1.5)} />
