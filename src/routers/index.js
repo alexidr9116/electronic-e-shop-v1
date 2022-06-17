@@ -33,6 +33,17 @@ export default function Router(){
                 {element:<Shopping />, index:true},
                 {element:<ShoppingBasket />, path:'basket'},
                 {element:<ShoppingFavorite />, path:'favorite'},
+                {element:<DeliveryOrders />, path:'orders'},
+                {element:<TransactionHistory />, path:'transactions'},
+            ]
+        },
+        {
+            path:'/user',
+            element:<DefaultLayout />,
+            children:[
+                
+                {element:<BillingAddressManage />, path:'billing-address'},
+                {element:<ShoppingFavorite />, path:'favorite'},
             ]
         },
         { 
@@ -57,8 +68,10 @@ const ForgotPassword = Loadable(lazy(()=>import("../pages/auth/ForgotPassword"))
 // client
 const ProductDetail = Loadable(lazy(()=>import('../pages/client/ProductDetail')));
 const Home = Loadable(lazy(()=>import("../pages/Home")));
+const BillingAddressManage =Loadable(lazy(()=>import("../pages/client/BillingAddressManage")));
 // shopping
 const Shopping = Loadable(lazy(()=>import("../pages/client/Shopping")));
 const ShoppingBasket = Loadable(lazy(()=>import("../pages/client/ShoppingBasket")));
 const ShoppingFavorite = Loadable(lazy(()=>import("../pages/client/ShoppingFavorites")));
-
+const DeliveryOrders = Loadable(lazy(()=>import("../pages/client/DeliveryOrders")));
+const TransactionHistory = Loadable(lazy(()=>import("../pages/client/TransactionHistory")));

@@ -5,7 +5,8 @@ import { Link,useNavigate } from 'react-router-dom';
 AccountMenu.propTypes = {
     user: PropTypes.object,
     isAuthenticated: PropTypes.bool,
-    onClose:PropTypes.func
+    onClose:PropTypes.func,
+    logout:PropTypes.func,
 }
 export default function AccountMenu({ user, isAuthenticated,logout,onClose }) {
     const navigate = useNavigate();
@@ -13,7 +14,10 @@ export default function AccountMenu({ user, isAuthenticated,logout,onClose }) {
         <div className="grid gap-2 w-full ">
             {isAuthenticated && user &&
                 <>
-                    <Link onClick={onClose} to = {`/profile`} className = {`btn btn-ghost btn-sm flex justify-start`}>{t('menu.profile')}</Link>
+                    {/* profile */}
+                    <Link onClick={onClose} to = {`/user/profile`} className = {`btn btn-ghost btn-sm flex justify-start`}>{t('menu.profile')}</Link>
+                    <Link onClick={onClose} to = {`/user/billing-address`} className = {`btn btn-ghost btn-sm flex justify-start`}>{t('menu.billing-address')}</Link>
+                    {/* logout */}
                     <button onClick={()=>{onClose(); logout(); navigate('/',{replace:true});}} className = {`btn btn-ghost btn-sm flex justify-start`}>{t('menu.logout')}</button>
                 </>
             }

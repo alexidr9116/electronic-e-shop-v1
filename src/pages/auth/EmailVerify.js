@@ -6,12 +6,39 @@ import { toast } from "react-hot-toast";
 
 import Page from "../../components/Page";
 import useAuth from "../../hook/useAuth";
+import { useEffect } from "react";
+import { API_AUTH, SEND_POST_REQUEST } from "../../utils/API";
+import { setSession } from "../../utils/jwt";
 
 
 export default function EmailVerify() {
     const {user} = useAuth();
-    
- 
+    const navigate= useNavigate();
+    const [loading, setLoading] = useState(false)
+    const handleResendAuthMail = ()=>{
+        setLoading(true);
+        SEND_POST_REQUEST(API_AUTH.resendAuthMail,{}).then(res=>{
+            setLoading(false);
+            if(res.status === 200){
+                toast.success(res.message);
+                setSession(res.data.token);
+            }
+            else{
+                toast.error(res.message);
+                setSession(res.data.token);
+            }
+        }).catch(err=>{
+            setLoading(false);
+  
+            toast.error("Internal server error")
+        })
+    }
+
+    useEffect(()=>{
+        if(!user){
+            navigate('/auth/login')
+        }
+    },[])
     return (
         <Page className="flex w-full justify-center mt-10 pb-10" title="Verify Your Email">
             <div className="flex  w-11/12 sm:w-[450px]  flex-col items-center ">
@@ -34,7 +61,7 @@ export default function EmailVerify() {
                 </label>
                 <div className="w-full px-4 sm:px-10 grid gap-4 justify-center">
                     
-                    <button className={`btn btn-accent btn-outline mb-8 w-full`}>{t('auth.resend')}</button>
+                    <button className={`btn btn-accent btn-outline mb-8 w-full ${loading?'loading':''}`} onClick ={handleResendAuthMail}>{t('auth.resend')}</button>
                 </div>
             </div>
         </Page>

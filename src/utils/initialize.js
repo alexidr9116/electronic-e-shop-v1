@@ -1,7 +1,17 @@
 import { API_CLIENT, SEND_GET_REQUEST } from "./API";
 
-const { setCategoriesToStore,setHotProductsToStore,setCurrencyRatesToStore } = require("../store/action/shoppingAction")
+const { setCategoriesToStore,setHotProductsToStore,setCurrencyRatesToStore, setPairModelsToStore } = require("../store/action/shoppingAction")
 
+export const loadPairModels = async()=>{
+    const response = await SEND_GET_REQUEST(`${API_CLIENT.common.getPairs}`);
+    if(response.status === 200 && response.data){
+        setPairModelsToStore(response.data);       
+        return true;
+    }
+    else{
+        return false;
+    }
+}
 export const loadLastCurrencyRate = async()=>{
     const response = await SEND_GET_REQUEST(`${API_CLIENT.common.getLastCurrencyRate}`);
     if(response.status === 200 && response.data){

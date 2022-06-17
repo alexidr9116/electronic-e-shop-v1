@@ -24,7 +24,9 @@ export default function Header() {
     const [navbar, setNavbar] = useState(false);
     return (
         <div className={`flex w-full justify-between p-2 border-b items-center ${themeMode === 'light' ? 'border-stone-300' : 'border-gray-800'}`} >
-            <Logo />
+            <Link className='cursor-pointer' to = '/'>
+                <Logo mode={themeMode} />
+            </Link>
             <div className="hidden md:flex">
                 <MainMenu routers={MAIN_MENU_ROUTERS} />
             </div>
@@ -35,7 +37,7 @@ export default function Header() {
                 {/* avatar  */}
                 <DropdownMenu
                     header={
-                        <button className='avatar '>
+                        <button className='avatar ' onClick={()=>{setDropdownClose(!setDropdownClose)}}>
                             <div className='w-10 rounded-full'>
                                 {isAuthenticated && user && user?.avatar &&
                                     <img src={`${ASSETS_URL.image}${user.avatar}`} alt='avatar' />

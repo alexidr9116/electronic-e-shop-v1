@@ -1,15 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import parser from 'html-react-parser';
 import Rating from '../../components/Ratings';
 import { fSimpleDate, strNumber, strPercent } from '../../utils/uFormatter';
 import { t } from "i18next";
-import { ASSETS_URL } from "../../utils/API";
+import { API_CLIENT, ASSETS_URL, SEND_PUT_REQUEST } from "../../utils/API";
+import toast from "react-hot-toast";
+import useAuth from "../../hook/useAuth";
 
 
 export function ProductReviews({ product }) {
+    const {user,isAuthenticated}= useAuth();
     const rating = (product?.reviews?.reduce((prev,current)=>(prev + current.rating),0)/product?.reviews?.length);
-    
+    const [customerRate,setCustomerRate] = useState(0);
+    const [customerReview,setCustomerReview] = useState('');
+    const hadleWriteReview = ()=>{
+        if(!isAuthenticated){
+            toast.error('You can use this feature after login..');
+            return;
+        }
+        if(user&& !user.emailVerified){
+            toast.error('You can use this feature after email verification..');
+            return;
+        }
+        SEND_PUT_REQUEST(API_CLIENT.product.putReview,{productId:product.id, rating:customerRate,comment:customerReview,status:1 }).then(res=>{
+            if(res.status!==200){
+                toast.err(res.message)
+            }
+        }).catch(err=>{
+            console.log(err);
+            toast.error("Whoops! Fatal error");
+        })
+    }
     return (
         <div className="flex flex-col gap-4">
             {/* rating */}
@@ -74,10 +96,10 @@ export function ProductReviews({ product }) {
                     <label className="">{t('reviews.add-review-validation-description')}
                     </label>
                     <label className="text-lg font-bold">{t('reviews.your-rating')}</label>
-                    <Rating value={0} name="your-review" ></Rating>
+                    <Rating value={customerRate} name="your-review" onChanged={(value)=>setCustomerRate(value)}></Rating>
                     <label className="text-lg font-bold">{t('reviews.customer-review')}</label>
-                    <textarea className="textarea textarea-bordered " rows={10}></textarea>
-                    <button className="btn btn-accent">{t('reviews.add-review')}</button>
+                    <textarea onChange={(e)=>setCustomerReview(e.target.value)} value={customerReview}  className="textarea textarea-bordered " rows={10}></textarea>
+                    <button className="btn btn-accent" onClick={hadleWriteReview}>{t('reviews.add-review')}</button>
                 </div>
             </div>
         </div>

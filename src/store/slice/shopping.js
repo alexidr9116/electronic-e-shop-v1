@@ -16,6 +16,9 @@ const initialState = {
     favorites:[
         
     ],
+    pairModels:[
+
+    ],
     error: null,
 }
 const slice = createSlice({
@@ -28,6 +31,9 @@ const slice = createSlice({
         },
         setCurrencyRates(state,action){
             state.currencyRates =action.payload;
+        },
+        setPairModels(state,action){
+            state.pairModels = action.payload;
         },
         setHotProducts(state, action){
             state.hotProducts = action.payload;
@@ -47,4 +53,4 @@ const slice = createSlice({
     }
 });
 export default slice.reducer;
-export const { setFavorites, setCategories,setHotProducts,setCurrencyRates } = slice.actions;
+export const { setFavorites, setCategories,setHotProducts,setCurrencyRates,setPairModels } = slice.actions;

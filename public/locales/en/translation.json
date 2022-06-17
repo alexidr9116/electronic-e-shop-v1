@@ -15,9 +15,10 @@
         "latest":"Latest",
         "load-more":"Load More..",
         "write-review":"Write A Review",
-
+        "office":"Office",
         "services":"Services",
-        
+        "save":"Save",
+        "cancel":"Cancel",
         "blogs":"Blogs",
         "contact":"Contact",
         "main-menu":"Main Menu",
@@ -40,8 +41,15 @@
         "login":"Login",
         "logout":"Logout",
         "profile":"Profile",
-        "shop":"E-Shop",
-        "service":"Service"
+        "shop":"E-Commerce",
+        "service":"Service",
+        "billing-address":"Billing & address",
+        "favorite":"Favorite",
+        "checkout":"Checkout",
+        "transactions":"Transactions",
+        "my-orders":"My Orders",
+        "dashboard":"Dashboard"
+
     },
     "sort":{
         "default-setting":"Default Sorting",
@@ -83,7 +91,12 @@
         "price":"Price",
         "amount":"Quantity",
         "favorite":"Favorite",
-        "favorites":"Favorites"
+        "favorites":"Favorites",
+        "add-billing-address":"Add New Address",
+        "search-result":"Product Found",
+        "delivery-orders":"Coming Orders",
+        "delivery-status":"Status",
+        "transactions":"Your Transactions"
     },
     "reviews":{
         "add-review":"Add a review",
@@ -115,6 +128,20 @@
         "verify-sub-title":"Still can't find the email?",
         "go-home":"Go To Home",
         "resend":"Resend Mail"
+    },
+    "select":{
+        "country":"Select Delivery Country"
+    },
+    "checkbox":{
+        "default-address":"Use this address as default"
+    },
+    "transaction":{
+        "title":"Transaction",
+        "id":"TrxId",
+        "mode":"Mode",
+        "total":"Total",
+        "status":"Status",
+        "created":"Created At"
     }
 
 }

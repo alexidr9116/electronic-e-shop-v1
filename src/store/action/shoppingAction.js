@@ -1,6 +1,11 @@
 
-import {setFavorites, setCategories,setHotProducts, setCurrencyRates } from "../slice/shopping";
+import {setFavorites, setCategories,setHotProducts, setCurrencyRates, setPairModels } from "../slice/shopping";
 import { dispatch } from "../store";
+
+export const setPairModelsToStore = async(data)=>{
+    dispatch(setPairModels(data));
+    return true;
+}
 export const setCurrencyRatesToStore = async(data)=>{
     dispatch(setCurrencyRates(data));
     return true;

@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux';
 import Router from './routers';
 import { useTranslation } from 'react-i18next';
 import { SUPPORT_THEME } from './config';
-import { loadShoppingCategories,loadHotProducts,loadLastCurrencyRate } from './utils/initialize';
+import { loadShoppingCategories,loadHotProducts,loadLastCurrencyRate, loadPairModels } from './utils/initialize';
 import toast from 'react-hot-toast';
 import { t } from 'i18next';
 
@@ -34,6 +34,9 @@ function App() {
       }
       if(!await(loadLastCurrencyRate())){
         toast.error(t('messages.not-load-currency-rate'));
+      }
+      if(!await(loadPairModels())){
+        toast.error(t('messages.not-load-pair-model'));
       }
     }
     initialize();

@@ -1,5 +1,6 @@
-export default function Logo(){
+export default function Logo({mode='white'}){
     return(
-        <img src = '/assets/logo-white.svg' alt = 'logo' className="h-12 text-"/>
+        
+        <img src = {`/assets/logo-${mode}.png`} alt = 'logo' className="h-12 text-accent"/>
     )
 }

@@ -2,6 +2,7 @@
 import { Icon } from "@iconify/react";
 import { t } from "i18next";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 import { useSelector } from "react-redux"
 import { Link } from "react-router-dom";
@@ -13,67 +14,90 @@ import PaymentOptions from "../../sections/basket/PaymentOptions";
 
 import ProductCarts from "../../sections/basket/ProductCarts";
 import { clearBasketFromStore, pushToBasketToStore, removeFromBasketFromStore } from "../../store/action/basketAction";
-import { API_CLIENT, SEND_POST_REQUEST } from "../../utils/API";
+import { API_CLIENT, SEND_DELETE_REQUEST, SEND_GET_REQUEST, SEND_POST_REQUEST } from "../../utils/API";
 
 export default function ShoppingBasket() {
     const { currency, time } = useCurrencyRate();
-
     const { carts } = useSelector((state) => state.basket);
     const [baskets, setBaskets] = useState([]);
     const [currentStep, setCurrentStep] = useState(1);
     const [loading, setLoading] = useState(false);
     const [billingAddress, setBillingAddress] = useState({});
+    const [billingAddressList, setBillingAddressList] = useState({});
     const [orderInfo, setOrderInfo] = useState({});
 
     const handleChangeAmount = (amount, product) => {
         product.basketAmount = amount;
         pushToBasketToStore({ id: product.id, amount });
-
     }
     const handleRemoveAll = async () => {
         setBaskets([]);
         await clearBasketFromStore();
 
     }
+    const onDeleteAddress = async (id) => {
+        const result = await SEND_DELETE_REQUEST(API_CLIENT.user.deleteBillingAddress, id);
+        if (!result.status === 200) {
+            toast.error(result?.message || "Server Error")
+        }
+        else {
 
+            setBillingAddressList(billingAddressList.splice(0, billingAddressList.length).filter((a) => a.id !== id));
+        }
+    }
     const handelRemoveOne = async (product) => {
         setBaskets(baskets.filter((p) => p.id !== product.id));
         await removeFromBasketFromStore(product.id);
 
     }
     useEffect(() => {
-        const ids = [];
+        if (currentStep !== 2) {
+            const ids = [];
+            for (const cart of carts)
+                ids.push(cart.id);
+            if (ids.length > 0) {
+                setLoading(true);
+                SEND_POST_REQUEST(API_CLIENT.product.getProductsByIds, { ids }).then(res => {
+                    if (res.status === 200 && res.data) {
+                        const _baskets = [];
+                        for (const product of res.data) {
 
-        for (const cart of carts)
-            ids.push(cart.id);
-        if (ids.length > 0) {
-            setLoading(true);
-            SEND_POST_REQUEST(API_CLIENT.product.getProductsByIds, { ids }).then(res => {
-                setLoading(false);
-                if (res.status === 200 && res.data) {
-                    const _baskets = [];
-                    for (const product of res.data) {
+                            product.basketAmount = Math.min((carts.filter(c => c.id === product.id)[0].amount), Math.max(0, product.stockAmount));
+                            _baskets.push(product);
 
-                        product.basketAmount = Math.min((carts.filter(c => c.id === product.id)[0].amount), Math.max(0, product.stockAmount));
-                        _baskets.push(product);
-
+                        }
+                        setBaskets(_baskets);
+                        // load billing address
+                        SEND_GET_REQUEST(API_CLIENT.user.getBillingAddress).then(res => {
+                            setLoading(false);
+                            if (res.status === 200) {
+                                setBillingAddressList(res.data);
+                            }
+                            else {
+                                toast.error(res.message);
+                            }
+                        }).catch(err => {
+                            setLoading(false);
+                            console.log(err)
+                        })
                     }
-                    setBaskets(_baskets);
-                }
-            }).catch(err => {
-                setLoading(false);
-            })
-        }
+                    else
+                        setLoading(false);
 
-    }, []);
+                }).catch(err => {
+                    setLoading(false);
+                })
+            }
+        }
+    }, [currentStep]);
 
     useEffect(() => {
+        if (carts.length > 0)
+            for (const product of baskets) {
+                product.basketAmount = Math.min((carts.filter(c => c.id === product.id)[0].amount), Math.max(0, product.stockAmount));
+            }
 
-        for (const product of baskets) {
-            product.basketAmount = Math.min((carts.filter(c => c.id === product.id)[0].amount), Math.max(0, product.stockAmount));
-        }
-
-    }, [carts]);
+    }, [baskets, carts]);
 
     useEffect(() => {
         const _orderInfo = {
@@ -85,7 +109,7 @@ export default function ShoppingBasket() {
         _orderInfo.total = _orderInfo.price;
         setOrderInfo(_orderInfo);
 
-    }, [baskets, currency,time])
+    }, [baskets, currency, time])
 
     return (
         <Page title="Checkout" className="flex flex-col w-full gap-2 sm:gap-4 ">
@@ -125,7 +149,7 @@ export default function ShoppingBasket() {
                 />
             }
             {currentStep === 2 &&
-                <div className="w-full flex justify-center"><BillingAddress onSelected={(address) => {setBillingAddress(address); setCurrentStep(currentStep+1); }} /></div>
+                <div className="w-full flex justify-center"><BillingAddress onDelete={onDeleteAddress} onSelected={(address) => { setBillingAddress(address); setCurrentStep(currentStep + 1); }} BILLING_ADDRESS={billingAddressList} /></div>
 
             }
             {currentStep === 3 &&
@@ -136,7 +160,7 @@ export default function ShoppingBasket() {
                     <Link onClick={() => (setCurrentStep(currentStep - 1))} to={'#'} className="hover:text-accent flex items-center"><Icon width={20} icon='eva:arrow-ios-back-outline'></Icon>&nbsp;{t('words.prev')}</Link>
                 }
                 <Link to={'/shopping'} className="hover:text-accent flex items-center"><Icon icon='arcticons:amazon-shopping' width={20}></Icon>&nbsp;{t('shopping.continue-shopping')}</Link>
-                {carts?.length > 0 && currentStep === 1 && 
+                {carts?.length > 0 && currentStep === 1 &&
                     <Link onClick={() => (setCurrentStep(currentStep + 1))} to={'#'} className="hover:text-accent flex items-center">{t('words.next')}&nbsp;<Icon width={20} icon='ic:baseline-navigate-next'></Icon></Link>
                 }
             </div>

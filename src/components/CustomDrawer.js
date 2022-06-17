@@ -1,27 +1,29 @@
 import { Icon } from '@iconify/react';
 import PropTypes from 'prop-types';
-import { Outlet } from 'react-router-dom';
 
-Drawer.propTypes = {
+CustomDrawer.propTypes = {
   open: PropTypes.bool,
   onClose: PropTypes.func,
   side: PropTypes.oneOf(['left', 'top', 'right', 'bottom']),
-  className: PropTypes.string,
   children: PropTypes.node,
+  className: PropTypes.string,
 }
 
-export default function Drawer({ open, onClose, side = 'left', className = '', children }) {
+
+
+export default function CustomDrawer({ open, onClose, side = 'left', children, className }) {
 
   const classes = getClasses(side);
   return (
-    <div className={`h-full  inset-0 absolute overflow-x-hidden flex z-40 ${open ? 'fixed' : 'hidden'} `}>
-      
-      <div className={`transition-all z-50 bg-base-100 overflow-y-auto h-full ${classes} ${className}`}>
+    <div className={` overflow-x-hidden overflow-y-auto  inset-0 z-40 ${open ? 'fixed' : 'hidden'} `}>
+      <div className="opacity-80 fixed inset-0 bg-black" onClick={onClose} />
+      <div className={` absolute transition-all z-50 overflow-y-auto ${classes} ${className}`} >
        
+          <button className='btn btn-ghost absolute btn-circle top-2 right-2' onClick={onClose}>
+            <Icon icon={'ic:round-close'} width={24} height={24} />
+          </button>
           {children}
-           
       </div>
-      <div className='bg-black opacity-80 w-full h-full'onClick={onClose}></div>
     </div>
   )
 }

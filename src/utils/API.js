@@ -2,6 +2,10 @@ import axios, { SERVER_ADDRESS } from "./axios";
 const API_DASHBOARD = {
 }
 const API_PAYMENT = {
+    putTransaction:'api/e-shop/transaction/put',
+    createQpayInvoice:'api/e-shop/transaction/qpay',
+    getTransaction:'api/e-shop/transaction/get/',
+    getUserTransactions:'api/e-shop/transaction/user',
 }
 const API_ADMIN = {
 }
@@ -14,9 +18,17 @@ const API_CLIENT = {
         getAll:"api/e-shop/product/get-all",
         getDetail:"api/e-shop/product/get-detail/",
         getProductsByIds:"api/e-shop/product/gets-by-ids/",
+        putReview:"api/e-shop/review/product",
+        getDeliveryOrders:"api/e-shop/product/get-orders",
     },
     common:{
         getLastCurrencyRate:"api/e-shop/common/last-currency-rate",
+        getPairs:'api/e-shop/common/pair-data',
+    },
+    user:{
+        putBillingAddress:"api/e-shop/user/put-billing-address",
+        getBillingAddress:"api/e-shop/user/get-billing-address",
+        deleteBillingAddress:"api/e-shop/user/delete-billing-address",
     }
 }
 const API_WAREHOUSE = {
@@ -25,6 +37,7 @@ const API_AUTH = {
     register:"api/e-shop/auth/register",
     login:"api/e-shop/auth/login",
     account:"api/e-shop/auth/my-account",
+    resendAuthMail:"api/e-shop/auth/send-verify-mail"
 }
 
 const ASSETS_URL = {

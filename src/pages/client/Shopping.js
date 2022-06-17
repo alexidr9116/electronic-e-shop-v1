@@ -15,6 +15,7 @@ import ProductItemSkeleton from '../../components/skeleton/ProductItemSkeleton';
 import { API_CLIENT, SEND_GET_REQUEST } from '../../utils/API';
 import { setFilterCategoriesToStore } from '../../store/action/filterAction';
 import useCurrencyRate from '../../hook/useCurrencyRate';
+import { strNumber } from '../../utils/uFormatter';
 
 
 export default function Shopping() {
@@ -23,16 +24,16 @@ export default function Shopping() {
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [pagedProducts, setPagedProducts] = useState([]);
     const [viewIndex, setViewIndex] = useState(0);
-    const [sorting,setSorting] = useState('');
-    const {favorites} = useSelector((state)=>state.basket);
+    const [sorting, setSorting] = useState('');
+    const { favorites } = useSelector((state) => state.basket);
 
     const { t } = useTranslation();
 
     const { themeMode } = useSelector((state) => state.setting);
-    
+
     const currencyRate = useCurrencyRate();
 
-    const {filterKeyword, filterCategories, filterMemories, filterRating, filterPrices } = useSelector((state) => state.filter);
+    const { filterKeyword, filterCategories, filterMemories, filterRating, filterPrices } = useSelector((state) => state.filter);
     const [loading, setLoading] = useState(false);
     const borderColor = ((themeMode === 'light') ? 'border-stone-300' : 'border-gray-800');
 
@@ -41,7 +42,7 @@ export default function Shopping() {
     const [showFilter, setShowFilter] = useState(false);
     const [changedFilter, setChangedFilter] = useState(false);
 
-    const handleSorting = (e)=>{
+    const handleSorting = (e) => {
 
         setSorting(e.target.value);
         e.preventDefault();
@@ -52,14 +53,18 @@ export default function Shopping() {
 
     const handleLoadMore = () => {
         setViewIndex(viewIndex + 12);
+        // window.scrollTo({
+        //     top: document.body.clientHeight,
+        //     behavior: 'smooth'
+        // });
     }
-
+    // apply filter when changed 
     useEffect(() => {
         const applyFilter = async (_filtered) => {
             try {
-                
-                if(filterKeyword!=="")
-                    _filtered = _filtered.filter((product)=>(product.keyword.toLowerCase().includes(filterKeyword) || product?.tags?.includes(filterKeyword) || product.title.toLowerCase().includes(filterKeyword)))
+
+                if (filterKeyword !== "")
+                    _filtered = _filtered.filter((product) => (product.keyword.toLowerCase().includes(filterKeyword) || product?.tags?.includes(filterKeyword) || product.title.toLowerCase().includes(filterKeyword)))
                 if (filterCategories.length > 0)
                     _filtered = _filtered.filter((product) => (
                         (filterCategories.includes(product.mainCategoryId) || filterCategories.includes(product.categoryId))
@@ -86,38 +91,39 @@ export default function Shopping() {
             }
             return _filtered;
         }
-        const sort = async(_filtered)=>{
-            if(sorting === "popular"){
+        const sort = async (_filtered) => {
+            if (sorting === "popular") {
 
             }
-            if(sorting === "latest"){
-                _filtered.sort((a,b)=>(b.createdAt>a.createdAt?1:-1))     
+            if (sorting === "latest") {
+                _filtered.sort((a, b) => (b.createdAt > a.createdAt ? 1 : -1))
             }
-            if(sorting === "asc"){
-                _filtered.sort((a,b)=>(a.usdLow>b.usdLow?1:-1))     
+            if (sorting === "asc") {
+                _filtered.sort((a, b) => (a.usdLow > b.usdLow ? 1 : -1))
             }
-            if(sorting === "desc"){
-                _filtered.sort((a,b)=>(b.usdLow>a.usdLow?1:-1))     
+            if (sorting === "desc") {
+                _filtered.sort((a, b) => (b.usdLow > a.usdLow ? 1 : -1))
             }
             return _filtered;
         }
         const filter = async () => {
-           
+
             setLoading(true);
             let _filtered = allProducts.slice(0, allProducts.length);
             _filtered = await applyFilter(_filtered);
             _filtered = await sort(_filtered);
             setFilteredProducts(_filtered);
             setViewIndex(1);
-           
+
             setLoading(false);
+            
             
         }
         if (changedFilter) {
             filter();
         }
-    }, [changedFilter, allProducts, filterCategories, filterMemories, filterPrices, filterRating, currencyRate,filterKeyword, sorting])
-
+    }, [changedFilter, allProducts, filterCategories, filterMemories, filterPrices, filterRating, currencyRate, filterKeyword, sorting])
+    // set page product
     useEffect(() => {
         if (viewIndex > 0) {
             let _products = pagedProducts.slice(0, pagedProducts.length);
@@ -131,9 +137,10 @@ export default function Shopping() {
                 _products.push(_product);
             }
             setPagedProducts(_products);
+            
         }
     }, [viewIndex, filteredProducts]);
-
+    // get all prouct
     useEffect(() => {
         const load = async () => {
             setLoading(true)
@@ -177,7 +184,7 @@ export default function Shopping() {
                         <div className={`flex justify-between items-center gap-2 p-2 border ${borderColor} bg-base-200 w-full rounded-lg  `}>
                             <button className='btn btn-active btn-sm px-6 md:hidden' onClick={() => (setShowFilter(true))}>Filter</button>
 
-                            <select className='select select-bordered select-sm' onChange={handleSorting} value = {sorting}>
+                            <select className='select select-bordered select-sm' onChange={handleSorting} value={sorting}>
                                 <option value={""}>{t('sort.default-setting')}</option>
                                 <option value={"popular"}>{t('sort.popular')}</option>
                                 <option value={"latest"}>{t('sort.latest')}</option>
@@ -193,6 +200,10 @@ export default function Shopping() {
                                 </button>
                             </div>
                         </div>
+                        <div className='flex justify-end items-end py-2'>
+                            <h3 className=''>{t('shopping.search-result')}:</h3>
+                            <h3 className='text-accent cursor-pointer' onClick={handleLoadMore}>{strNumber(filteredProducts.length)}</h3>
+                        </div>
                         {/* product list */}
                         <div className={`py-2 w-full mb-4 grid gap-2 md:gap-4 ${viewMode === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3 ' : ''}`}>
                             {loading &&
@@ -207,7 +218,7 @@ export default function Shopping() {
                             {!loading && pagedProducts.map((item, index) => (
                                 <ProductItem
                                     product={item}
-                                    favorites = {favorites}
+                                    favorites={favorites}
                                     currencyRate={currencyRate}
                                     key={index}
                                     index={index}
